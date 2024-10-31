@@ -1,0 +1,6 @@
+.env
+.venv
+/src/datasets/
+
+__pycache__/
+.idea/
