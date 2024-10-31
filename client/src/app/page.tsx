@@ -1,10 +1,22 @@
 import PredictionForm from "@/components/prediction_form";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Image from "next/image";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-100 flex flex-col">
-      <header className="w-full p-10 bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto">
+      <header className="w-full p-10 bg-white shadow-sm flex items-center gap-10">
+        <div className="w-24">
+          <AspectRatio ratio={16 / 7}>
+            <Image
+              src="/images/NHS-Logo.webp"
+              alt="NHIS-img"
+              fill
+              className="object-cover object-center"
+            />
+          </AspectRatio>
+        </div>
+        <div className="max-w-7xl ">
           <h1 className="text-2xl font-bold text-gray-800">
             COVID-19 Risk Assessment
           </h1>

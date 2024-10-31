@@ -29,6 +29,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Loader } from "lucide-react";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Image from "next/image";
 
 type ComponentProps = {};
 
@@ -51,11 +53,7 @@ const PredictionForm: React.FC<ComponentProps> = ({}) => {
   // ~ ======= create states -->
   const [open, setOpen] = React.useState<boolean>(false);
   const [prediction_results, setPredictionResults] = React.useState<{
-    random_forest: PredictionResult;
-    xgboost: PredictionResult;
-    logistic_regression: PredictionResult;
-    naive_bayes: PredictionResult;
-    knn: PredictionResult;
+    svm_model: PredictionResult;
   } | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -77,33 +75,29 @@ const PredictionForm: React.FC<ComponentProps> = ({}) => {
     setIsLoading(true);
     try {
       // ~ ======= make a request to our server -->
-      const rf_response = await axios.post(
-        "http://localhost:8000/random_forest/predict",
-        form_data,
-      );
-      const xgb_response = await axios.post(
-        "http://localhost:8000/xgboost/predict",
-        form_data,
-      );
-      const lr_response = await axios.post(
-        "http://localhost:8000/logistic_regression/predict",
-        form_data,
-      );
-      const nb_response = await axios.post(
-        "http://localhost:8000/naive_bayes/predict",
-        form_data,
-      );
-      const knn_response = await axios.post(
-        "http://localhost:8000/knn/predict",
+      // const rf_response = await axios.post(
+      //   "http://localhost:8000/random_forest/predict",
+      //   form_data,
+      // );
+      // const xgb_response = await axios.post(
+      //   "http://localhost:8000/xgboost/predict",
+      //   form_data,
+      // );
+      // const lr_response = await axios.post(
+      //   "http://localhost:8000/logistic_regression/predict",
+      //   form_data,
+      // );
+      // const nb_response = await axios.post(
+      //   "http://localhost:8000/naive_bayes/predict",
+      //   form_data,
+      // );
+      const svm_response = await axios.post(
+        "http://localhost:8000/svm/predict",
         form_data,
       );
 
       setPredictionResults({
-        random_forest: rf_response.data,
-        xgboost: xgb_response.data,
-        logistic_regression: lr_response.data,
-        naive_bayes: nb_response.data,
-        knn: knn_response.data,
+        svm_model: svm_response.data,
       });
       setOpen(true);
     } catch (error) {
@@ -118,7 +112,7 @@ const PredictionForm: React.FC<ComponentProps> = ({}) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(on_submit)}
-        className="w-full max-w-4xl grid grid-cols-4 gap-4 gap-y-6 rounded-lg shadow-xl py-20 border px-10"
+        className="w-full max-w-4xl grid grid-cols-4 gap-4 gap-y-6 rounded-lg shadow-xl pt-20 pb-8 border px-10"
       >
         {/* -- hospital id  */}
         <FormField
@@ -285,6 +279,20 @@ const PredictionForm: React.FC<ComponentProps> = ({}) => {
             "Submit"
           )}
         </Button>
+
+        <div className="col-span-4 flex items-center justify-center gap-5">
+          <div className="w-16">
+            <AspectRatio ratio={4 / 3}>
+              <Image
+                src="/images/tees.png"
+                alt="NHIS-img"
+                fill
+                className="object-cover object-center"
+              />
+            </AspectRatio>
+          </div>
+          <span>Powered by Teesside University</span>
+        </div>
         <ResultDialog
           open={open}
           hospital_id={form.getValues("hospital_id")}
@@ -305,8 +313,7 @@ type DialogProps = {
   open: boolean;
   hospital_id: string;
   prediction_results: {
-    random_forest: PredictionResult;
-    xgboost: PredictionResult;
+    svm_model: PredictionResult;
     // Add more models here as needed
   } | null;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;

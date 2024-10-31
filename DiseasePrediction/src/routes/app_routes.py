@@ -7,6 +7,7 @@ from src.routes.knn_routes import knn_router
 from src.routes.naive_bayes import naive_bayes_router
 ### import all the routers
 from src.routes.random_forest import random_forest_router
+from src.routes.svm_route import svm_router
 from src.routes.xgboost_route import xgboost_router
 from src.routes.logistic_regression import logistic_regression_router
 
@@ -27,3 +28,4 @@ app_router.include_router(xgboost_router)
 app_router.include_router(logistic_regression_router)
 app_router.include_router(naive_bayes_router)
 app_router.include_router(knn_router)
+app_router.include_router(svm_router)

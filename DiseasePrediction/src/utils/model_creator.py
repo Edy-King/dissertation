@@ -193,3 +193,30 @@ class ModelCreator:
         print('knn model created.')
         return True
 
+    # ################################################
+    # ### Svm model
+    # #################################################
+    def create_svm(self):
+        ### get the test and train data
+        X_train, X_test, Y_train, Y_test = self.pre_process_data()
+
+        pca = PCA(n_components=2) # reduce the dimensions to 2 for visualization
+        X_train_pca = pca.fit_transform(X_train)
+        X_test_pca = pca.transform(X_test)
+
+        svm_model = SVC(kernel='linear') # use a linear kernel for simplicity
+
+        # Train the classifier on the PCA-transformed training data
+        print('fitting the model')
+        svm_model.fit(X_train_pca, Y_train)
+
+        # Create the 'model' directory if it doesn't exist
+        os.makedirs('./models', exist_ok=True)
+
+        # Save the model
+        print('saving the model')
+        joblib.dump(svm_model, './models/svm_pca.joblib')
+
+        return True
+
+
