@@ -200,7 +200,7 @@ class ModelCreator:
         ### get the test and train data
         X_train, X_test, Y_train, Y_test = self.pre_process_data()
 
-        pca = PCA(n_components=2) # reduce the dimensions to 2 for visualization
+        pca = PCA(n_components=5) # reduce the dimensions to 2 for visualization
         X_train_pca = pca.fit_transform(X_train)
         X_test_pca = pca.transform(X_test)
 

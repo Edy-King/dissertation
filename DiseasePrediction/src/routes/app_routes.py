@@ -23,9 +23,9 @@ def root():
 
 
 ### attach other routes
+app_router.include_router(svm_router)
 app_router.include_router(random_forest_router)
 app_router.include_router(xgboost_router)
 app_router.include_router(logistic_regression_router)
 app_router.include_router(naive_bayes_router)
 app_router.include_router(knn_router)
-app_router.include_router(svm_router)
