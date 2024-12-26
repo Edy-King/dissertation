@@ -146,6 +146,10 @@ The `ModelCreator` class in `src/utils/model_creator.py` handles data preprocess
 - Applies undersampling to balance the dataset
 - Splits data into training and testing sets
 
+
+## Data availability
+https://drive.google.com/file/d/15dDPeekh7qvU6no4RSjP9TwKvs4Bi6fP/view?usp=sharing
+
 ## Environment Variables
 
 - `PORT`: The port number on which the server will run.
